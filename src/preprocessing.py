@@ -6,18 +6,8 @@ from tokenizers import Tokenizer, models, pre_tokenizers, trainers
 
 
 class PreModelPipeline:
-    """
-    Routes incoming Roman text through a strict 4-step pipeline
-    before it touches the neural transliteration model.
-    """
-
     def __init__(self, corpus_paths=None, vocab_size=5000):
-        """
-        Args:
-            corpus_paths: List of CSV file paths to build dictionary and tokenizer.
-                          Pass None to create a lightweight instance (tokenizer loaded separately).
-            vocab_size: Target vocabulary size for BPE tokenizer.
-        """
+
         try:
             nltk.data.find("corpora/words")
         except LookupError:
@@ -38,16 +28,6 @@ class PreModelPipeline:
         self._build_pipeline(corpus_paths, vocab_size)
 
     def normalize_roman(self, text):
-        """
-        STEP 2: Roman Normalization Layer.
-        Compresses chaotic user spelling to reduce the model's vocabulary.
-        Examples:
-            'aaa' -> 'a', 'ee' -> 'i', 'oo' -> 'u', 'ph' -> 'f'
-        Args:
-            text: Raw Roman text input.
-        Returns:
-            Normalized lowercase string with only alphabetic characters.
-        """
         word = str(text).lower().strip()
 
         word = re.sub(r"a{2,}", "a", word)   
@@ -60,12 +40,6 @@ class PreModelPipeline:
         return word
 
     def _build_pipeline(self, corpus_paths, vocab_size):
-        """
-        Build the dictionary backoff and BPE tokenizer from training data.
-        Args:
-            corpus_paths: List of CSV file paths containing 'roman' and 'native' columns.
-            vocab_size: Target BPE vocabulary size.
-        """
         print("1. Loading training datasets to build Phase 2 modules...")
         dfs = []
         for path in corpus_paths:
@@ -110,24 +84,9 @@ class PreModelPipeline:
         print(f"-> Subword Tokenizer trained. Vocab size: {self.tokenizer.get_vocab_size()}")
 
     def is_english(self, word):
-        """
-        STEP 1: Language Detection.
-        Check if the word is English and should bypass transliteration.
-        Args:
-            word: Lowercase word string.
-        Returns:
-            True if the word is English (length > 3 and in dictionary).
-        """
         return word.lower() in self.english_dict and len(word) > 3
 
     def process_word(self, word):
-        """
-        Route a single incoming word through the strict 4-step logic flow.
-        Args:
-            word: Raw input word.
-        Returns:
-            Dictionary with keys: word, route, output, tokens.
-        """
         original_word = str(word).strip()
         clean_word = original_word.lower()
 
@@ -161,12 +120,5 @@ class PreModelPipeline:
         return {"word": original_word, "route": "Error", "output": None, "tokens": None}
 
     def process_sentence(self, sentence):
-        """
-        Process a full sentence, evaluating word-by-word.
-        Args:
-            sentence: Full input sentence string.
-        Returns:
-            List of process_word result dictionaries.
-        """
         words_in_sentence = sentence.split()
         return [self.process_word(w) for w in words_in_sentence]
