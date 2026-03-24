@@ -7,6 +7,7 @@ phonetic mappings (k→क, m→म, etc).
 import os
 import sys
 import math
+import json
 
 import torch
 import torch.optim as optim
@@ -76,6 +77,18 @@ def evaluate_epoch(model, iterator, criterion):
     return epoch_loss / len(iterator)
 
 
+def sample_predictions(model, pipeline, trg_vocab, test_words, device):
+    """Generate sample predictions for a list of test words."""
+    from src.decoder import HybridDecoder
+    decoder = HybridDecoder(model, pipeline, trg_vocab, device)
+    model.eval()
+    results = []
+    for word in test_words:
+        pred = decoder.transliterate(word)
+        results.append({"input": word, "prediction": pred})
+    return results
+
+
 def main():
     print(f"Stage 1 Training — Device: {DEVICE}\n")
 
@@ -125,10 +138,20 @@ def main():
     optimizer = optim.Adam(model.parameters(), lr=STAGE1_CONFIG["lr"])
     criterion = nn.CrossEntropyLoss(ignore_index=PAD_IDX)
 
-    # Training loop
+    # Training loop with history logging
     config = STAGE1_CONFIG
     best_valid_loss = float("inf")
     save_path = os.path.join(DATA_DIR, config["save_name"])
+    history_path = os.path.join(DATA_DIR, "stage1_history.json")
+
+    # Words to test at each epoch
+    sample_words = ["namaste", "bharat", "kolkata", "kisan", "sundar", "desh", "vidyalaya", "pariksha"]
+
+    history = {
+        "train_loss": [], "val_loss": [],
+        "train_ppl": [], "val_ppl": [],
+        "tf_ratio": [], "predictions": [],
+    }
 
     print(f"--- Starting Stage 1 Training ({config['epochs']} Epochs) ---\n")
 
@@ -147,15 +170,34 @@ def main():
             print(f"  Train Loss: {train_loss:.3f} | Train PPL: {train_ppl:7.3f}")
             print(f"  Val. Loss:  {valid_loss:.3f} | Val. PPL:  {valid_ppl:7.3f}")
 
+            # Log metrics
+            history["train_loss"].append(round(train_loss, 4))
+            history["val_loss"].append(round(valid_loss, 4))
+            history["train_ppl"].append(round(train_ppl, 2))
+            history["val_ppl"].append(round(valid_ppl, 2))
+            history["tf_ratio"].append(round(tf_ratio, 4))
+
+            # Sample predictions every 5 epochs (and epoch 1)
+            if (epoch + 1) % 5 == 0 or epoch == 0:
+                preds = sample_predictions(model, pipeline, trg_vocab, sample_words, DEVICE)
+                history["predictions"].append({"epoch": epoch + 1, "samples": preds})
+                print(f"  Sample: {preds[0]['input']} → {preds[0]['prediction']}")
+
             if valid_loss < best_valid_loss:
                 best_valid_loss = valid_loss
                 torch.save(model.state_dict(), save_path)
                 print(f"  [*] Best model saved to {save_path}")
 
+            # Save history after every epoch (survives interrupts)
+            with open(history_path, "w", encoding="utf-8") as f:
+                json.dump(history, f, ensure_ascii=False, indent=2)
+
     except KeyboardInterrupt:
         print("\nTraining interrupted. Checkpoints remain saved.")
 
-    print("\n✓ Stage 1 Training Complete!")
+    print(f"\n✓ Stage 1 Training Complete!")
+    print(f"  History saved to {history_path}")
+    print(f"  Run: python scripts/visualize_training.py stage1")
 
 
 if __name__ == "__main__":
