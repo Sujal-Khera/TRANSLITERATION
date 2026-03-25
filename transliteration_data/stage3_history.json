@@ -1,0 +1,144 @@
+{
+  "train_loss": [
+    6.3436,
+    5.5921,
+    4.8676,
+    4.6657,
+    4.5551
+  ],
+  "val_loss": [
+    6.0689,
+    5.1895,
+    4.8387,
+    4.6301,
+    4.4781
+  ],
+  "train_ppl": [
+    568.85,
+    268.29,
+    130.01,
+    106.24,
+    95.11
+  ],
+  "val_ppl": [
+    432.19,
+    179.38,
+    126.31,
+    102.53,
+    88.07
+  ],
+  "tf_ratio": [
+    0.2,
+    0.15,
+    0.1,
+    0.05,
+    0.0
+  ],
+  "predictions": [
+    {
+      "epoch": 1,
+      "samples": [
+        {
+          "input": "mera naam sujal hai",
+          "prediction": "मेरा नम सुजल ऩ"
+        },
+        {
+          "input": "bharat ek sundar desh hai",
+          "prediction": "भारत ईक सुनदर देश ऩ"
+        },
+        {
+          "input": "aaj mausam bahut accha hai",
+          "prediction": "ज मौसम बहु अच्छा ऩ"
+        },
+        {
+          "input": "namaste dosto",
+          "prediction": "नमस्ते दोस्तो"
+        }
+      ]
+    },
+    {
+      "epoch": 2,
+      "samples": [
+        {
+          "input": "mera naam sujal hai",
+          "prediction": "मेरा नमम सुजलल ऩ"
+        },
+        {
+          "input": "bharat ek sundar desh hai",
+          "prediction": "भारत इकर सुनदरर देश ऩ"
+        },
+        {
+          "input": "aaj mausam bahut accha hai",
+          "prediction": "ज मौसमम बहु अच्छा ऩ"
+        },
+        {
+          "input": "namaste dosto",
+          "prediction": "नमस्ते दोस्तो"
+        }
+      ]
+    },
+    {
+      "epoch": 3,
+      "samples": [
+        {
+          "input": "mera naam sujal hai",
+          "prediction": "मेरा नमम सुजलल ऩ"
+        },
+        {
+          "input": "bharat ek sundar desh hai",
+          "prediction": "भारत इकर सुनदरर देश ऩ"
+        },
+        {
+          "input": "aaj mausam bahut accha hai",
+          "prediction": "ज मौसमम बहु अच्छा ऩ"
+        },
+        {
+          "input": "namaste dosto",
+          "prediction": "नमस्ते दोस्तो"
+        }
+      ]
+    },
+    {
+      "epoch": 4,
+      "samples": [
+        {
+          "input": "mera naam sujal hai",
+          "prediction": "मेरा नमम सुजलल ऩ"
+        },
+        {
+          "input": "bharat ek sundar desh hai",
+          "prediction": "भारत इकर सुनदरर देश ऩ"
+        },
+        {
+          "input": "aaj mausam bahut accha hai",
+          "prediction": "ज मौसमम बहु अच्छा ऩ"
+        },
+        {
+          "input": "namaste dosto",
+          "prediction": "नमस्ते दोस्तो"
+        }
+      ]
+    },
+    {
+      "epoch": 5,
+      "samples": [
+        {
+          "input": "mera naam sujal hai",
+          "prediction": "मेरा नमम सुजलल ऩ"
+        },
+        {
+          "input": "bharat ek sundar desh hai",
+          "prediction": "भारत इकर सुनदरर देश ऩ"
+        },
+        {
+          "input": "aaj mausam bahut accha hai",
+          "prediction": "ज मौसमम बहु अच्छा ऩ"
+        },
+        {
+          "input": "namaste dosto",
+          "prediction": "नमस्ते दोस्तो"
+        }
+      ]
+    }
+  ]
+}

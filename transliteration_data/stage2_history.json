@@ -1,0 +1,212 @@
+{
+  "train_loss": [
+    0.5354,
+    0.5354,
+    0.5429,
+    0.5539,
+    0.5656,
+    0.5781,
+    0.5911,
+    0.6029,
+    0.614,
+    0.6284
+  ],
+  "val_loss": [
+    0.8068,
+    0.7812,
+    0.774,
+    0.7422,
+    0.7391,
+    0.7086,
+    0.7101,
+    0.6896,
+    0.6846,
+    0.6732
+  ],
+  "train_ppl": [
+    1.71,
+    1.71,
+    1.72,
+    1.74,
+    1.76,
+    1.78,
+    1.81,
+    1.83,
+    1.85,
+    1.87
+  ],
+  "val_ppl": [
+    2.24,
+    2.18,
+    2.17,
+    2.1,
+    2.09,
+    2.03,
+    2.03,
+    1.99,
+    1.98,
+    1.96
+  ],
+  "tf_ratio": [
+    0.4,
+    0.37,
+    0.34,
+    0.31,
+    0.28,
+    0.25,
+    0.22,
+    0.19,
+    0.16,
+    0.13
+  ],
+  "predictions": [
+    {
+      "epoch": 1,
+      "samples": [
+        {
+          "input": "namaste",
+          "prediction": "नमस्ते"
+        },
+        {
+          "input": "bharat",
+          "prediction": "भरत"
+        },
+        {
+          "input": "kolkata",
+          "prediction": "कोलकाता"
+        },
+        {
+          "input": "kisan",
+          "prediction": "किसान"
+        },
+        {
+          "input": "sundar",
+          "prediction": "सुंदर"
+        },
+        {
+          "input": "desh",
+          "prediction": "देश"
+        },
+        {
+          "input": "vidyalaya",
+          "prediction": "विद्यालय"
+        },
+        {
+          "input": "pariksha",
+          "prediction": "परीक्षा"
+        }
+      ]
+    },
+    {
+      "epoch": 3,
+      "samples": [
+        {
+          "input": "namaste",
+          "prediction": "नमस्ते"
+        },
+        {
+          "input": "bharat",
+          "prediction": "भरत"
+        },
+        {
+          "input": "kolkata",
+          "prediction": "कोलकाता"
+        },
+        {
+          "input": "kisan",
+          "prediction": "किसान"
+        },
+        {
+          "input": "sundar",
+          "prediction": "सुंदर"
+        },
+        {
+          "input": "desh",
+          "prediction": "देश"
+        },
+        {
+          "input": "vidyalaya",
+          "prediction": "विद्यालय"
+        },
+        {
+          "input": "pariksha",
+          "prediction": "परीक्षा"
+        }
+      ]
+    },
+    {
+      "epoch": 6,
+      "samples": [
+        {
+          "input": "namaste",
+          "prediction": "नमस्ते"
+        },
+        {
+          "input": "bharat",
+          "prediction": "भरत"
+        },
+        {
+          "input": "kolkata",
+          "prediction": "कोलकाता"
+        },
+        {
+          "input": "kisan",
+          "prediction": "किसान"
+        },
+        {
+          "input": "sundar",
+          "prediction": "सुंदर"
+        },
+        {
+          "input": "desh",
+          "prediction": "देश"
+        },
+        {
+          "input": "vidyalaya",
+          "prediction": "विद्यालय"
+        },
+        {
+          "input": "pariksha",
+          "prediction": "परीक्षा"
+        }
+      ]
+    },
+    {
+      "epoch": 9,
+      "samples": [
+        {
+          "input": "namaste",
+          "prediction": "नमस्ते"
+        },
+        {
+          "input": "bharat",
+          "prediction": "भरत"
+        },
+        {
+          "input": "kolkata",
+          "prediction": "कोलकाता"
+        },
+        {
+          "input": "kisan",
+          "prediction": "किसान"
+        },
+        {
+          "input": "sundar",
+          "prediction": "सुंदर"
+        },
+        {
+          "input": "desh",
+          "prediction": "देश"
+        },
+        {
+          "input": "vidyalaya",
+          "prediction": "विद्यालय"
+        },
+        {
+          "input": "pariksha",
+          "prediction": "परीक्षा"
+        }
+      ]
+    }
+  ]
+}
