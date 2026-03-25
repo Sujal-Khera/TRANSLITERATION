@@ -5,7 +5,7 @@
   "description": "Real-time Roman to Devanagari transliteration powered by a Seq2Seq neural network with Bahdanau attention.",
   "permissions": [],
   "host_permissions": [
-    "http://localhost:8000/*"
+    "https://transliteration-engine.onrender.com/*"
   ],
   "action": {
     "default_popup": "popup.html",

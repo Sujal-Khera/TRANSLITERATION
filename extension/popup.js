@@ -9,7 +9,7 @@
  *   5. Keyboard shortcuts (Ctrl+Enter)
  */
 
-const API_BASE = "http://localhost:8000";
+const API_BASE = "https://transliteration-engine.onrender.com";
 const MAX_HISTORY = 10;
 
 // ==========================================
