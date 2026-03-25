@@ -14,6 +14,7 @@ import sys
 import time
 
 from fastapi import FastAPI, Request
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from pydantic import BaseModel
@@ -31,6 +32,14 @@ app = FastAPI(
     title="Transliteration Engine API",
     description="Real-time Roman to Devanagari transliteration",
     version="1.0.0",
+)
+
+# CORS middleware — allows Chrome extension and other origins
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["GET", "POST"],
+    allow_headers=["*"],
 )
 
 templates = Jinja2Templates(directory=os.path.join(os.path.dirname(__file__), "templates"))
