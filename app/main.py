@@ -104,3 +104,10 @@ async def transliterate(req: TransliterateRequest):
 async def health():
     """Health check endpoint."""
     return {"status": "ok", "model_loaded": system is not None}
+
+
+@app.get("/ping")
+async def ping():
+    """Lightweight ping endpoint for cron jobs."""
+    return "pong"
+
