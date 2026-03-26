@@ -13,6 +13,7 @@ Usage:
 """
 
 import os
+import json
 import torch
 from tokenizers import Tokenizer
 
@@ -42,18 +43,29 @@ class TransliterationSystem:
 
         print("Loading Transliteration System...")
 
-        # 1. Load the pre-model pipeline with dictionary
-        master_word_path = os.path.join(data_dir, "master_corpus", "words_train.csv")
-        if os.path.exists(master_word_path):
-            self.pipeline = PreModelPipeline(corpus_paths=[master_word_path], vocab_size=5000)
+        # 1. Load the pre-model pipeline with dictionary backoff
+        #    Priority: JSON export (fast) > master CSV > individual CSVs
+        dict_json_path = os.path.join(data_dir, "dictionary_backoff.json")
+
+        if os.path.exists(dict_json_path):
+            # FAST PATH: Load pre-exported dictionary (~2s boot)
+            self.pipeline = PreModelPipeline(corpus_paths=None, vocab_size=5000)
+            with open(dict_json_path, "r", encoding="utf-8") as f:
+                self.pipeline.fast_lookup = json.load(f)
+            print(f"-> Dictionary Backoff loaded from JSON: {len(self.pipeline.fast_lookup)} entries")
         else:
-            # Fallback to building from aksharantar + dakshina
-            paths = [
-                os.path.join(data_dir, "aksharantar_train.csv"),
-                os.path.join(data_dir, "dakshina_train.csv"),
-            ]
-            existing_paths = [p for p in paths if os.path.exists(p)]
-            self.pipeline = PreModelPipeline(corpus_paths=existing_paths, vocab_size=5000)
+            # SLOW PATH: Rebuild from CSVs (~15s boot)
+            master_word_path = os.path.join(data_dir, "master_corpus", "words_train.csv")
+            if os.path.exists(master_word_path):
+                self.pipeline = PreModelPipeline(corpus_paths=[master_word_path], vocab_size=5000)
+            else:
+                paths = [
+                    os.path.join(data_dir, "aksharantar_train.csv"),
+                    os.path.join(data_dir, "dakshina_train.csv"),
+                ]
+                existing_paths = [p for p in paths if os.path.exists(p)]
+                self.pipeline = PreModelPipeline(corpus_paths=existing_paths, vocab_size=5000)
+            print("  (Tip: Run 'python scripts/export_dictionary.py' to speed up future boots)")
 
         # 2. Load the saved tokenizer (locked to training tokenizer)
         tokenizer_path = os.path.join(data_dir, "tokenizer.json")
