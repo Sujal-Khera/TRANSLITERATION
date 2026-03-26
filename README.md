@@ -1,4 +1,4 @@
-# 🔤 Transliteration Engine
+# Transliteration Engine
 
 A lightweight, phonetically-aware neural transliteration system that converts **Roman (Latin) script** into **Devanagari (Hindi)** script while preserving pronunciation.
 
@@ -13,7 +13,7 @@ Output: नमस्ते दोस्तों, मेरा नाम सु�
 
 ---
 
-## 🏗️ Architecture
+## Architecture
 
 ```
 Roman Input
@@ -43,7 +43,7 @@ Roman Input
      Devanagari Output
 ```
 
-## 📊 Model Details
+## Model Details
 
 | Component | Specification |
 |-----------|--------------|
@@ -55,7 +55,7 @@ Roman Input
 | Raw Size | ~15 MB |
 | Quantized | ~4 MB (INT8) |
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 TransliterationEngine/
@@ -88,7 +88,7 @@ TransliterationEngine/
 └── docs/                   # Documentation
 ```
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Installation
 
@@ -136,7 +136,7 @@ uvicorn app.main:app --reload
 # Open http://localhost:8000 in your browser
 ```
 
-## 📈 Training Curriculum
+## Training Curriculum
 
 | Stage | Data | Epochs | Learning Rate | Goal |
 |-------|------|--------|--------------|------|
@@ -144,7 +144,7 @@ uvicorn app.main:app --reload
 | 2 | Aksharantar + Dakshina | 10 | 0.0005 | Real-world spelling variations |
 | 3 | Sentence Pairs | 5 | 0.0001 | Sentence-level context |
 
-## 📦 Datasets
+## Datasets
 
 | Dataset | Source | Size | Purpose |
 |---------|--------|------|---------|
@@ -152,17 +152,13 @@ uvicorn app.main:app --reload
 | Dakshina Lexicons | Google | ~500K pairs | Spelling variation exposure |
 | Dakshina Sentences | Google | ~2.5K pairs | Sentence-level context |
 
-## 🔧 Edge Optimization
+## Edge Optimization
 
 - **Quantization**: FP32 → INT8 dynamic quantization (~9MB → ~4MB)
 - **ONNX Export**: Separate encoder/decoder graphs for cross-platform deployment
 - **Target Latency**: <50ms per sentence on mobile CPU
 
-## 📄 License
-
-This project was developed as part of academic coursework.
-
-## 🙏 Acknowledgements
+## Acknowledgements
 
 - [AI4Bharat Aksharantar](https://ai4bharat.iitm.ac.in/aksharantar)
 - [Google Dakshina Dataset](https://github.com/google-research-datasets/dakshina)
